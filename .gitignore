@@ -1,0 +1,10 @@
+config.json
+
+# Idea folder
+.idea
+
+# Compiled python files
+*.pyc
+
+# Logs
+logs

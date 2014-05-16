@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Anton Kalinin">
+    <link rel="shortcut icon" href="/ico/favicon.png">
+
+    <title>Fetcher</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}"/>
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}"/>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    {% macro render_error(field) %}
+        {% if field.errors %}
+            {% for error in field.errors %}<span class='error'>{{ error }}</span>{% endfor %}
+        {% endif %}
+    {% endmacro %}
+
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Plastic</a>
+
+            </div>
+            <div class="lead header-title">Programming Languages Statistic</div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+
+    <!-- Begin page content -->
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <div id="footer">
+        <div class="container">
+            <p class="text-muted">Thanks to GitHub, 2014</p>
+        </div>
+    </div>
+
+    <!-- JavaScripts -->
+    <script src="{{ url_for('static', filename='js/jquery-2.0.3.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/d3.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
+
