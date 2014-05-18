@@ -4,7 +4,7 @@ from os import path
 
 class Logger:
 
-    log_dir = path.join("..", "logs")
+    log_dir = "logs"
 
     def __init__(self, filename):
         logging.basicConfig(

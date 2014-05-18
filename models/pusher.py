@@ -1,5 +1,5 @@
 import pymongo
-from models.logger import Logger
+from logger import Logger
 
 
 class Pusher:

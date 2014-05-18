@@ -3,7 +3,7 @@ from os import path
 
 import requests
 
-from models.logger import Logger
+from logger import Logger
 
 
 class Puller:
