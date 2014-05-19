@@ -38,8 +38,6 @@ while rate_limit > 0:
                 logger.info('sleep for %d secs' % sleep_time)
                 time.sleep(sleep_time)
 
-
-
     commits_stats = puller.get_commits_stat()
     pusher.save_commits_stat(commits_stats)
 

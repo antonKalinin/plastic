@@ -77,7 +77,7 @@ class Aggregator:
         
 if __name__ == "__main__":
     # load config
-    config = json.load(open('config.json'))
+    config = json.load(open('../config.json'))
 
     aggregator = Aggregator(config)
     aggregator.run()
