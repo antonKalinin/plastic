@@ -3,8 +3,8 @@ import datetime
 
 import pymongo
 
+from os import path
 from logger import Logger
-
 
 class Aggregator:
     """
@@ -77,7 +77,9 @@ class Aggregator:
         
 if __name__ == "__main__":
     # load config
-    config = json.load(open('../config.json'))
+    configPath = path.join(path.dirname(path.realpath(__file__)), '..', 'config.json')
+    print(configPath)
+    config = json.load(open(configPath))
 
     aggregator = Aggregator(config)
     aggregator.run()
