@@ -14,7 +14,7 @@ pusher = Pusher(config)
 logger = Logger(__file__)
 
 rate_limit = puller.get_rate_limit()
-pull_speed = 1.4
+pull_speed = 1.39
 
 while rate_limit > 0:
     logger.info('*' * 20 + ' new loop ' + '*' * 20)
@@ -30,7 +30,7 @@ while rate_limit > 0:
         logger.info('remaining time %d' % remaining_time)
         logger.info('current pull speed %f req/sec' % current_pull_speed)
 
-        speed_delta = current_pull_speed - pull_speed
+        speed_delta = pull_speed - current_pull_speed
 
         if speed_delta > 0:
             sleep_time = int(len(commits_stats) * speed_delta)
