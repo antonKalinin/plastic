@@ -4,7 +4,7 @@ from os import path
 
 class Logger:
 
-    log_dir = "logs"
+    log_dir = "/home/www/plastic/logs"
 
     def __init__(self, filename):
         logging.basicConfig(
