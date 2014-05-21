@@ -16,7 +16,7 @@ def index():
 
 @app.route('/api')
 def api():
-    data = list(db.monthly.find({}, {'_id': False}))
+    data = list(db.monthly.find({'lang': {'$in': ['py', 'rb', 'php']}}, {'_id': False}))
 
     return flask.Response(json.dumps(data),  mimetype='application/json')
 

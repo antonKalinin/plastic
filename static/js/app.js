@@ -1,7 +1,7 @@
 $(function() {
     var margin = {top: 20, right: 20, bottom: 30, left: 100},
         width = 960 - margin.left - margin.right,
-        height = 5000 - margin.top - margin.bottom;
+        height = 500 - margin.top - margin.bottom;
 
     var x = d3.scale.linear()
         .range([0, width]);
