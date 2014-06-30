@@ -77,7 +77,6 @@ class Aggregator:
 if __name__ == "__main__":
     # load config
     configPath = path.join(path.dirname(path.realpath(__file__)), '..', 'config.json')
-    print(configPath)
     config = json.load(open(configPath))
 
     aggregator = Aggregator(config)
