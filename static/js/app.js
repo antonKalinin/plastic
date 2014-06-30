@@ -1,13 +1,13 @@
 $(function() {
     var margin = {top: 20, right: 20, bottom: 30, left: 100},
         width = 960 - margin.left - margin.right,
-        height = 5000 - margin.top - margin.bottom;
+        height = 1200 - margin.top - margin.bottom;
 
     var x = d3.scale.linear()
         .range([0, width]);
 
     var y = d3.scale.ordinal()
-        .rangeRoundBands([0, height], .1);
+        .rangeRoundBands([0, height], .2);
 
     var xAxis = d3.svg.axis()
         .scale(x)
@@ -24,7 +24,9 @@ $(function() {
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.json("/api", function(error, data) {
+    d3.json("/api/repo/langs", function(error, data) {
+        console.log(data);
+
         x.domain([0, d3.max(data, function(d) { return d.count; })]);
         y.domain(data.map(function(d) { return d.lang; }));
 
@@ -46,8 +48,6 @@ $(function() {
             .attr("dy",".85em")
             .style("text-anchor", "end")
             .text("Languages");
-
-        var dy = 10;
 
         svg.selectAll(".bar")
             .data(data)

@@ -1,7 +1,7 @@
 import time
 import json
-from models.puller import Puller
-from models.pusher import Pusher
+from old.puller import Puller
+from old.pusher import Pusher
 from models.logger import Logger
 
 # load config

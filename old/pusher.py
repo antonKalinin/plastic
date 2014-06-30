@@ -22,3 +22,13 @@ class Pusher:
         self.logger.info("saved %d commits" % len(ids))
 
         return ids
+
+    def push_repositories(self, repositories):
+        collection_name = self.config[u'collections'][u'repositories']
+        collection = self.db[collection_name]
+        ids = collection.insert(repositories)
+
+        self.logger.info("Pushed %d repositories" % len(ids))
+
+        return ids
+

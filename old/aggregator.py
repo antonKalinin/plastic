@@ -1,10 +1,9 @@
 import json
 import datetime
-
 import pymongo
-
 from os import path
 from logger import Logger
+
 
 class Aggregator:
     """

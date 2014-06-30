@@ -1,13 +1,13 @@
 import json
-from os import path
-
 import requests
-
+from os import path
 from logger import Logger
 
 
 class Puller:
     """ Class for pulling data from GitHub via API """
+
+    api_url = 'https://api.github.com/'
 
     def __init__(self, config):
         self.auth_params = config[u'auth']
@@ -22,32 +22,47 @@ class Puller:
     def get_rate_reset(self):
         return int(self.rate_reset)
 
-    def get_commits_stat(self):
-        """
-        returned data looks like:
-        [
-            {
-                "cid": commit_id,
-                "data" {
-                    "js": 12,
-                    "php": 23,
-                    "html": 33
-                }
-            }
-        ]
-        """
-        # get events
-        response = requests.get('https://api.github.com/events', params=self.auth_params)
+    def request(self, method, get_params={}):
+        params = dict(self.auth_params.items() + get_params.items())
+
+        response = requests.get(Puller.api_url + method, params=params)
         if response.status_code != 200:
             pass  # TODO: Throw an exception
 
         self.rate_limit = int(response.headers['x-ratelimit-remaining'])
         self.rate_reset = response.headers['x-ratelimit-reset']
 
-        self.logger.info("get events; rate limit: %d" % self.rate_limit)
+        self.logger.info("Get %s; rate limit: %d" % (method, self.rate_limit))
 
-        # filter push events
-        events = json.loads(response.text)
+        return json.loads(response.text)
+
+    def pull_repositories(self, since_repo_id):
+        repositories = self.request('repositories', {'since': since_repo_id})
+        repositories_langs = {
+            'new': {},
+            'fork': {}
+        }
+
+        for repo in repositories:
+            repo_full_name = repo.parent.full_name if repo.fork else repo.full_name
+            method = '/repos/%s/languages' % repo_full_name
+
+            languages = self.request(method)
+
+            if languages:
+                repo_type = ['new', 'fork'][repo.fork]
+                stats = repositories_langs[repo_type]
+
+                for lang_name in languages:
+                    if lang_name not in stats:
+                        stats[lang_name] = 0
+                    stats[lang_name] += languages[lang_name]
+
+        return repositories_langs
+
+
+    def get_commits_stat(self):
+        events =  self.request('events')
         push_events = [event for event in events if event[u'type'] == 'PushEvent']
 
         if len(push_events) == 0:
